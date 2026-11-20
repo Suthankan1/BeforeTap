@@ -6,7 +6,7 @@ Do not implement everything in one prompt. The checkboxes track *verified* work,
 
 - [ ] M0.1 Build iOS demo shell on macOS and Android demo shell in Android Studio.
 - [ ] M0.2 Document build/test commands, versions, signing and emulator/device setup.
-- [ ] M0.3 Establish formatting, test target and smoke test.
+- [ ] M0.3 Establish formatting, test target and smoke test. Host verdict checks pass on both languages. Native test and lint verification is pending.
 
 ## M1 — Pure domain
 

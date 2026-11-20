@@ -45,6 +45,6 @@ The starting apps are educational **UI shells with explicitly labeled demo resul
 
 ## Current state
 
-The Figma flows each have 20 screens and native styling. The source code here only starts the home/demo journey. The accompanying plan maps all remaining screens and states. The Gradle and Xcode projects **have not been compiled in this Linux environment** (no Android SDK/Gradle or Xcode installed); establish a clean baseline on your Mac/Android Studio before feature work.
+The Figma flows each have 20 screens and native styling. The source code here only starts the home/demo journey. The accompanying plan maps all remaining screens and states. See [implementation status](STATUS.md) for the verified domain checks and remaining native build prerequisites.
 
 Copyright © 2026 Suthankan Balenthiran. Licensing decision pending; do not assume open-source permission.

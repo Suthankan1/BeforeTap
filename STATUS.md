@@ -15,7 +15,7 @@ Updated: 2026-11-20
 - No app-store submission, telemetry or production infrastructure.
 - Native app builds, Android unit tests and Android lint are still pending.
 
-## Bootstrap checkpoint
+## Bootstrap checkpoint (`8b561c3`)
 
 - Starting revision `f84715e`, branch `main`, initially clean and tracking `origin/main` at the requested GitHub repository.
 - `python3 scripts/validate_repository.py` passed for 9 required files and 4 fictional verdicts.
@@ -23,6 +23,12 @@ Updated: 2026-11-20
 - `xcodebuild -version` failed because only Command Line Tools were selected. `xcrun --sdk iphonesimulator --show-sdk-path` failed to find the simulator SDK. XcodeGen was absent.
 - Cached Gradle 9.7.1 on OpenJDK 25.0.4.1 attempted `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug` in offline mode. Configuration failed at `com.android.application:9.5.1` resolution. The configured Android SDK directory was absent and the project's Gradle 9.6.0 wrapper distribution was incomplete in the cache.
 - Figma frame metadata was accessible for both prototypes. Welcome, privacy, check home and choose source are iOS `4:194`, `4:227`, `4:258`, `4:320` and Android `2:16`, `2:49`, `2:80`, `2:142`. Capture the matching frame context and screenshots before implementing each screen.
+
+## Domain smoke checks
+
+- Swift 6 host smoke test passed four verdict JSON round trips, exact verdict coverage and fictional demo provenance. See [local setup](docs/09-SETUP.md) for the command.
+- Kotlin 2.4.0 compiled the domain source and its verdict test with JVM target 17. JUnit 4.13.2 ran both tests directly on the host JVM and reported `OK (2 tests)`.
+- These checks exercise pure domain code. Native app builds, Android Gradle tests and lint, simulator checks and design comparison remain pending.
 
 ## Next exact slice
 

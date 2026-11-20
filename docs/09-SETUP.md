@@ -23,9 +23,19 @@ The generated `.xcodeproj` is ignored because the YAML source is authoritative. 
 
 The Android version baseline is a proposed November 2026 selection (AGP 9.5.1, Compose BOM 2026.09.00, Kotlin Compose plugin 2.4.21). Verify compatibility in Android Studio and document any deliberate upgrades rather than applying them blindly.
 
-## What has actually been verified
+## Domain check with macOS Command Line Tools
 
-The ZIP contents, structure and JSON/YAML syntax are checked during packaging. **No iOS compilation or Android Gradle build was possible in the Linux packaging environment**. The first prompt should establish these baselines.
+From the repository root:
+
+```sh
+beforetap_test_dir="$(mktemp -d)"
+swiftc -module-cache-path "$beforetap_test_dir/cache" -swift-version 6 \
+  apps/ios/BeforeTap/Domain/VerificationModels.swift \
+  apps/ios/Tests/VerdictSmokeTests.swift -o "$beforetap_test_dir/verdict-tests" &&
+  "$beforetap_test_dir/verdict-tests"
+```
+
+See [implementation status](../STATUS.md) for actual native build attempts and host test results.
 
 ## Official docs
 
