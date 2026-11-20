@@ -15,9 +15,9 @@ The generated `.xcodeproj` is ignored because the YAML source is authoritative. 
 
 ## Android
 
-1. Install current Android Studio, JDK 17+, SDK Platform API 37 and compatible build tools.
+1. Install a compatible JDK and Android SDK. The command-line package IDs for this project are `platforms;android-37.0` and `build-tools;36.0.0`.
 2. Open `apps/android` and let Android Studio import the Gradle project.
-3. This archive omits `gradle-wrapper.jar` (binary); generate a standard trusted wrapper via installed Gradle `gradle wrapper --gradle-version 9.6.0`, or use Android Studio's wrapper workflow.
+3. Use the checked-in wrapper. It downloads Gradle 9.6.0 and checks the distribution SHA-256.
 4. Run `./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug` once a wrapper is present.
 5. Use an emulator/device to check the demonstration UI and system insets. Never represent the demo result as a network scan.
 

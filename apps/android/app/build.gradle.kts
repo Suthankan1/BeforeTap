@@ -15,7 +15,7 @@ android {
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    sourceSets.getByName("test").resources.srcDir("../../../fixtures/results")
+    sourceSets.getByName("test").resources.directories.add("../../../fixtures/results")
 
     buildFeatures {
         compose = true
