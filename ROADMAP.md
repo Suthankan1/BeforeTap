@@ -4,14 +4,14 @@ Do not implement everything in one prompt. The checkboxes track *verified* work,
 
 ## M0 — Bootstrap
 
-- [ ] M0.1 Build iOS demo shell on macOS and Android demo shell in Android Studio.
+- [ ] M0.1 Build both demo shells. Android Gradle build passes. iOS simulator build is pending.
 - [ ] M0.2 Document build/test commands, versions, signing and emulator/device setup.
 - [ ] M0.3 Establish formatting, test target and smoke test. Host verdict checks pass on both languages. Native test and lint verification is pending.
 
 ## M1 — Pure domain
 
 - [x] M1.1 Verdict/evidence models and fixture decoding with host tests on both platforms.
-- [ ] M1.2 URL input parser and normalization with malicious/edge-case tests.
+- [ ] M1.2 URL input parser and normalization with edge-case tests. Both platforms pass the shared single-link ASCII cases. IDN handling and message extraction are pending.
 - [ ] M1.3 Explainable local indicators with limits (not a threat reputation service).
 - [ ] M1.4 State machine: idle, input, local check, optional remote, result, errors.
 

@@ -18,7 +18,8 @@ struct VerdictSmokeTests {
         precondition(result.displayHost.hasSuffix(".example"), "Expected a fictional demo host")
         precondition(result.limitations.contains { $0.contains("No live") }, "Missing demo limitation")
         try checkFixtureDecoding()
-        print("Passed: verdict round trips, demo provenance, and fixture decoding")
+        try checkLocalWebLinks()
+        print("Passed: verdict round trips, demo provenance, fixture decoding, and local web links")
     }
 
     private static func checkFixtureDecoding() throws {
@@ -59,6 +60,23 @@ struct VerdictSmokeTests {
             preconditionFailure("Expected the decoder to reject a non-demo result")
         } catch DecodingError.dataCorrupted {
             return
+        }
+    }
+
+    private static func checkLocalWebLinks() throws {
+        let cases = try String(contentsOfFile: "fixtures/links/web-links.txt", encoding: .utf8)
+        for (index, line) in cases.split(separator: "\n").enumerated() where !line.hasPrefix("#") {
+            let fields = line.split(separator: "|", omittingEmptySubsequences: false)
+            let actual = LocalWebLink.parse(String(fields[0]))
+            if fields[1].isEmpty {
+                precondition(actual == nil, "Unexpected link on case \(index + 1)")
+            } else {
+                let expected = LocalWebLink(
+                    scheme: String(fields[1]), host: String(fields[2]),
+                    port: Int(fields[3]), hasUserInfo: fields[4] == "true"
+                )
+                precondition(actual == expected, "Link mismatch on case \(index + 1)")
+            }
         }
     }
 }

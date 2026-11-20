@@ -1,0 +1,17 @@
+# Input | scheme | effective host | port or - | has user info
+HTTPS://Example.example./a%2Fb?label=a%20b#section|https|example.example.|-|false
+http://name@host.example:8080/path|http|host.example|8080|true
+https://[2001:db8::1]:443/|https|[2001:db8::1]|443|false
+http://192.0.2.1/|http|192.0.2.1|-|false
+https://xn--bcher-kva.example/|https|xn--bcher-kva.example|-|false
+# An empty expected scheme means rejected input
+example.example|
+file:///example|
+https:///example|
+https://host.example:|
+https://host.example:65536/|
+https://host.example/%zz|
+https://two words.example/|
+https://bücher.example/|
+https://192.000.2.1/|
+https://[2001:db8:::1]/|
