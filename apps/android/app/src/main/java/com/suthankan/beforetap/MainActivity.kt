@@ -63,7 +63,7 @@ private fun BeforeTapApp() {
 
 @Composable
 private fun CheckHome(onDemo: () -> Unit) {
-    var input by rememberSaveable { mutableStateOf("") }
+    var input by remember { mutableStateOf("") }
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)

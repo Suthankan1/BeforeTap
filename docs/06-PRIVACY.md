@@ -9,6 +9,10 @@
 - No raw message/screenshot or full URL with tokens in analytics/crash logs.
 - No ad identifiers, contact scraping, accessibility-service surveillance or automatic clipboard reading.
 
+## Current Android draft handling
+
+Draft text lives in the active screen's memory and clears when Android recreates the activity. BeforeTap excludes app storage from cloud backup and device-to-device backup. See [Android backup rules](https://developer.android.com/identity/data/autobackup).
+
 ## Product copy examples
 
 - "We analyze text on your device. Online reputation checks are optional and may send the link to our verification provider."

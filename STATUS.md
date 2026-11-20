@@ -43,16 +43,22 @@ Updated: 2026-11-20
 - The Swift host harness compiled with warnings treated as errors and passed. Kotlin compiled with `-Werror` and JUnit 4.13.2 passed five tests on the host JVM.
 - The fixtures remain offline demo data. Native app entry points still use the existing illustrative sample.
 
-## Android build and local URL parsing
+## Android build and local URL parsing (`8132bb2`)
 
 - Installed Android SDK Platform 37.0, build tools 36.0.0, platform tools, emulator and the Android 37.0 ARM64 image.
 - `./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --warning-mode fail --console=plain` passed with six unit tests, zero errors, and zero failures. Lint reported five warnings, including skipped AndroidX library checks and the backup rules advisory.
 - Swift and Kotlin passed 15 shared URL cases. The parser accepts one explicit ASCII HTTP(S) link, including punycode host labels. It returns lowercased scheme and effective host, explicit port and user-info presence. It retains no raw URL, credentials, path, query or fragment. Raw Unicode input, message extraction, public suffix resolution and UI wiring remain open.
 - Swift host compilation and tests passed with warnings treated as errors. The full iOS source parsed and XcodeGen included the new Swift source. Native iOS compilation still requires Xcode.
 
+## Android draft privacy
+
+- Android excludes app storage from cloud backup and device-to-device transfer. Pasted drafts stay out of saved activity state.
+- The Android 37 emulator passed home → labeled demo result → home. Rotating the emulator cleared a fictional draft.
+- Android assemble, unit tests, and lint passed again. Explicit legacy backup handling cleared the data extraction rules advisory.
+
 ## Next exact slice
 
-Verify the Android shell on the dedicated emulator and configure Android backup rules. Complete M0.1 on iOS after the Mac completes Xcode installation. Continue the M1.2 work with IDN handling and local input review after the parser's shared behavior is established.
+Finish the iOS simulator launch and UI smoke check after installing the runtime. Continue the M1.2 work with IDN handling and local input review after the parser's shared behavior is established.
 
 ## Session log template
 
