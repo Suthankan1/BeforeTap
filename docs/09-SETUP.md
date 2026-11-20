@@ -11,6 +11,8 @@ This package includes **native source shells and configuration**, but not genera
 5. Build the simulator target with `xcodebuild -project BeforeTap.xcodeproj -scheme BeforeTap -destination "generic/platform=iOS Simulator" build`. Run on an installed simulator to check that the demo result is clearly labeled.
 6. If XcodeGen config/SDK changes are required, record actual versions and compile logs in `STATUS.md`.
 
+If the system still selects Command Line Tools, set `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` for the Xcode commands. Install a simulator runtime with `xcodebuild -downloadPlatform iOS` if needed. Run the UI smoke test with `xcodebuild -project BeforeTap.xcodeproj -scheme BeforeTap -destination "platform=iOS Simulator,id=<simulator-id>" test`. Use `xcrun simctl list devices available` to find the simulator ID.
+
 The generated `.xcodeproj` is ignored because the YAML source is authoritative. If the team prefers a checked-in Xcode project, decide and document the change.
 
 ## Android

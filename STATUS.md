@@ -13,7 +13,7 @@ Updated: 2026-11-20
 - No real verification backend or threat-feed integration.
 - No screenshot OCR, QR scanner, share extension, history persistence, accessibility audit or dark-mode implementation.
 - No app-store submission, telemetry or production infrastructure.
-- The iOS simulator build and native design comparisons are still pending.
+- The iOS simulator UI test and full native design comparisons are still pending.
 
 ## Bootstrap checkpoint (`8b561c3`)
 
@@ -50,11 +50,17 @@ Updated: 2026-11-20
 - Swift and Kotlin passed 15 shared URL cases. The parser accepts one explicit ASCII HTTP(S) link, including punycode host labels. It returns lowercased scheme and effective host, explicit port and user-info presence. It retains no raw URL, credentials, path, query or fragment. Raw Unicode input, message extraction, public suffix resolution and UI wiring remain open.
 - Swift host compilation and tests passed with warnings treated as errors. The full iOS source parsed and XcodeGen included the new Swift source. Native iOS compilation still requires Xcode.
 
-## Android draft privacy
+## Android draft privacy (`07d9e31`)
 
 - Android excludes app storage from cloud backup and device-to-device transfer. Pasted drafts stay out of saved activity state.
 - The Android 37 emulator passed home → labeled demo result → home. Rotating the emulator cleared a fictional draft.
 - Android assemble, unit tests, and lint passed again. Explicit legacy backup handling cleared the data extraction rules advisory.
+
+## iOS build and UI test target
+
+- Xcode 27.2 and XcodeGen 2.46.0 generated and built the app for the iOS 27.2 simulator SDK. `xcodebuild ... build-for-testing` also compiled the XCTest UI bundle.
+- The simulator runtime download is in progress. The compiled UI test has yet to run on a device.
+- The Xcode commands used `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` because the global developer path still points to Command Line Tools.
 
 ## Next exact slice
 

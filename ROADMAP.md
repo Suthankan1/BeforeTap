@@ -4,7 +4,7 @@ Do not implement everything in one prompt. The checkboxes track *verified* work,
 
 ## M0 — Bootstrap
 
-- [ ] M0.1 Build both demo shells. Android Gradle build passes. iOS simulator build is pending.
+- [x] M0.1 Build both demo shells. Android debug APK and iOS simulator builds pass.
 - [ ] M0.2 Document build/test commands, versions, signing and emulator/device setup.
 - [ ] M0.3 Establish formatting, test target and smoke test. Host verdict checks pass on both languages. Native test and lint verification is pending.
 

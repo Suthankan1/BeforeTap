@@ -20,3 +20,22 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
+  BeforeTapUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - BeforeTapUITests
+    dependencies:
+      - target: BeforeTap
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  BeforeTap:
+    build:
+      targets:
+        BeforeTap: all
+    test:
+      targets:
+        - BeforeTapUITests
