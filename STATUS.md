@@ -24,15 +24,26 @@ Updated: 2026-11-20
 - Cached Gradle 9.7.1 on OpenJDK 25.0.4.1 attempted `:app:assembleDebug :app:testDebugUnitTest :app:lintDebug` in offline mode. Configuration failed at `com.android.application:9.5.1` resolution. The configured Android SDK directory was absent and the project's Gradle 9.6.0 wrapper distribution was incomplete in the cache.
 - Figma frame metadata was accessible for both prototypes. Welcome, privacy, check home and choose source are iOS `4:194`, `4:227`, `4:258`, `4:320` and Android `2:16`, `2:49`, `2:80`, `2:142`. Capture the matching frame context and screenshots before implementing each screen.
 
-## Domain smoke checks
+## Toolchain follow-up
+
+- Homebrew installed XcodeGen 2.46.0 and the Mac App Store command-line client. `xcodegen generate` created the local Xcode project.
+- The Xcode App Store installation attempt stopped at macOS administrator authentication.
+
+## Domain smoke checks (`13f9a3c`)
 
 - Swift 6 host smoke test passed four verdict JSON round trips, exact verdict coverage and fictional demo provenance. See [local setup](docs/09-SETUP.md) for the command.
 - Kotlin 2.4.0 compiled the domain source and its verdict test with JVM target 17. JUnit 4.13.2 ran both tests directly on the host JVM and reported `OK (2 tests)`.
 - These checks exercise pure domain code. Native app builds, Android Gradle tests and lint, simulator checks and design comparison remain pending.
 
+## Shared fixture decoding
+
+- Both decoders read the four checked-in fixtures and preserve timestamps, evidence, checks and limitations. A false demo marker is rejected and an unknown verdict maps to `UNABLE_TO_VERIFY`.
+- The Swift host harness compiled with warnings treated as errors and passed. Kotlin compiled with `-Werror` and JUnit 4.13.2 passed five tests on the host JVM.
+- The fixtures remain offline demo data. Native app entry points still use the existing illustrative sample.
+
 ## Next exact slice
 
-Finish **M0.1** with full Xcode, XcodeGen, and an installed iOS simulator runtime. Resolve the pinned Android plugins online, install the configured SDK, generate the wrapper and run the three Android checks above. See [local setup](docs/09-SETUP.md). Continue with M1.1 fixture decoding on both platforms. Keep all results labeled as demos.
+Finish **M0.1** with full Xcode, XcodeGen, and an installed iOS simulator runtime. Resolve the pinned Android plugins online, install the configured SDK, generate the wrapper and run the three Android checks above. See [local setup](docs/09-SETUP.md). Run the fixture tests through Android Gradle once the SDK is available, then implement M1.2 local URL parsing on both platforms. Keep all results labeled as demos.
 
 ## Session log template
 

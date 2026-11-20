@@ -30,7 +30,7 @@ From the repository root:
 ```sh
 beforetap_test_dir="$(mktemp -d)"
 swiftc -module-cache-path "$beforetap_test_dir/cache" -swift-version 6 \
-  apps/ios/BeforeTap/Domain/VerificationModels.swift \
+  apps/ios/BeforeTap/Domain/*.swift \
   apps/ios/Tests/VerdictSmokeTests.swift -o "$beforetap_test_dir/verdict-tests" &&
   "$beforetap_test_dir/verdict-tests"
 ```

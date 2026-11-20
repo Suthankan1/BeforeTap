@@ -17,6 +17,48 @@ struct VerdictSmokeTests {
         precondition(result.verdict == .suspicious && result.isDemo, "Unexpected demo verdict")
         precondition(result.displayHost.hasSuffix(".example"), "Expected a fictional demo host")
         precondition(result.limitations.contains { $0.contains("No live") }, "Missing demo limitation")
-        print("Passed: four verdict round trips and demo provenance")
+        try checkFixtureDecoding()
+        print("Passed: verdict round trips, demo provenance, and fixture decoding")
+    }
+
+    private static func checkFixtureDecoding() throws {
+        let fixtures = URL(fileURLWithPath: "fixtures/results", isDirectory: true)
+        let expectations: [(String, Verdict)] = [
+            ("known-malicious", .knownMalicious),
+            ("suspicious", .suspicious),
+            ("no-known-threats", .noKnownThreats),
+            ("unable-to-verify", .unableToVerify)
+        ]
+
+        for (filename, verdict) in expectations {
+            let data = try Data(contentsOf: fixtures.appendingPathComponent("\(filename).demo.json"))
+            let result = try DemoResultFixture.decode(data)
+            precondition(result.verdict == verdict)
+            precondition(result.displayHost.hasSuffix(".example"))
+            precondition(result.checkedAt.formatted(.iso8601) == "2026-11-20T00:00:00Z")
+            precondition(!result.limitations.isEmpty)
+            precondition(!result.checks.isEmpty)
+            if verdict == .unableToVerify {
+                precondition(result.checks.first?.reason == "Provider timeout")
+            }
+            if verdict == .knownMalicious {
+                precondition(result.evidence.first?.source == "Fictional fixture")
+            }
+        }
+
+        let suspicious = try Data(contentsOf: fixtures.appendingPathComponent("suspicious.demo.json"))
+        let json = try JSONSerialization.jsonObject(with: suspicious)
+        guard var fields = json as? [String: Any] else { preconditionFailure("Expected JSON object") }
+        fields["verdict"] = "FUTURE_VERDICT"
+        let future = try DemoResultFixture.decode(JSONSerialization.data(withJSONObject: fields))
+        precondition(future.verdict == .unableToVerify)
+
+        fields["fixture"] = false
+        do {
+            _ = try DemoResultFixture.decode(JSONSerialization.data(withJSONObject: fields))
+            preconditionFailure("Expected the decoder to reject a non-demo result")
+        } catch DecodingError.dataCorrupted {
+            return
+        }
     }
 }

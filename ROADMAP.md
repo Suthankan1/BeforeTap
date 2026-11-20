@@ -10,7 +10,7 @@ Do not implement everything in one prompt. The checkboxes track *verified* work,
 
 ## M1 — Pure domain
 
-- [ ] M1.1 Verdict/evidence models and fixture decoding with tests on both platforms.
+- [x] M1.1 Verdict/evidence models and fixture decoding with host tests on both platforms.
 - [ ] M1.2 URL input parser and normalization with malicious/edge-case tests.
 - [ ] M1.3 Explainable local indicators with limits (not a threat reputation service).
 - [ ] M1.4 State machine: idle, input, local check, optional remote, result, errors.
