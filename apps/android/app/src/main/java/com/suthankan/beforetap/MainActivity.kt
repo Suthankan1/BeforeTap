@@ -2,6 +2,8 @@ package com.suthankan.beforetap
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,9 +24,26 @@ import com.suthankan.beforetap.domain.DemoFixture
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.TRANSPARENT
+            )
+        )
+        val preferences = getPreferences(MODE_PRIVATE)
         setContent {
+            var hasOnboarded by rememberSaveable {
+                mutableStateOf(preferences.getBoolean("has_onboarded", false))
+            }
             MaterialTheme(colorScheme = lightColorScheme(primary = androidx.compose.ui.graphics.Color(0xFF006B5E))) {
-                BeforeTapApp()
+                if (hasOnboarded) {
+                    BeforeTapApp()
+                } else {
+                    Onboarding {
+                        preferences.edit().putBoolean("has_onboarded", true).apply()
+                        hasOnboarded = true
+                    }
+                }
             }
         }
     }

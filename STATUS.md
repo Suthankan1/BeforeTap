@@ -56,11 +56,17 @@ Updated: 2026-11-20
 - The Android 37 emulator passed home → labeled demo result → home. Rotating the emulator cleared a fictional draft.
 - Android assemble, unit tests, and lint passed again. Explicit legacy backup handling cleared the data extraction rules advisory.
 
-## iOS build and UI test target
+## iOS build and UI test target (`0a951cc`)
 
 - Xcode 27.2 and XcodeGen 2.46.0 generated and built the app for the iOS 27.2 simulator SDK. `xcodebuild ... build-for-testing` also compiled the XCTest UI bundle.
 - The simulator runtime download is in progress. The compiled UI test has yet to run on a device.
 - The Xcode commands used `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` because the global developer path still points to Command Line Tools.
+
+## Android onboarding
+
+- Implemented Welcome and Privacy from Android Figma frames `2:16` and `2:49`, using their shield, lock and check artwork, native system bars, and Compose controls.
+- The privacy copy describes the current demo. A local Boolean records completion.
+- Gradle build, six unit tests, and lint passed. Android 37 emulator verified first launch, Back navigation, Continue to Check, and relaunch. Compared 412 × 892 emulator screenshots against both Figma frames.
 
 ## Next exact slice
 

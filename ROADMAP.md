@@ -18,7 +18,7 @@ Do not implement everything in one prompt. The checkboxes track *verified* work,
 ## M2 — Native UI against Figma
 
 - [ ] M2.1 iOS onboarding, privacy and check home (I01-I04).
-- [ ] M2.2 Android onboarding, privacy and check home (A01-A04).
+- [ ] M2.2 Android onboarding, privacy and check home (A01-A04). A01 and A02 verified on the Android emulator. A03 and A04 remain.
 - [ ] M2.3 Paste/review/result states, all four verdicts (I05/I09-I15 and Android equivalents).
 - [ ] M2.4 Evidence details, history, settings, help, offline (I14-I20 and equivalents).
 - [ ] M2.5 Dark mode, Dynamic Type/font scaling, screen readers, reduced motion, touch targets.
