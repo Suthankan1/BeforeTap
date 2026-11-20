@@ -62,11 +62,17 @@ Updated: 2026-11-20
 - The simulator runtime download is in progress. The compiled UI test has yet to run on a device.
 - The Xcode commands used `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` because the global developer path still points to Command Line Tools.
 
-## Android onboarding
+## Android onboarding (`b540029`)
 
 - Implemented Welcome and Privacy from Android Figma frames `2:16` and `2:49`, using their shield, lock and check artwork, native system bars, and Compose controls.
 - The privacy copy describes the current demo. A local Boolean records completion.
 - Gradle build, six unit tests, and lint passed. Android 37 emulator verified first launch, Back navigation, Continue to Check, and relaunch. Compared 412 × 892 emulator screenshots against both Figma frames.
+
+## iOS onboarding
+
+- Implemented Welcome and Privacy from iOS Figma frames `4:194` and `4:227`. The screens use Figma artwork, Dynamic Type, native navigation, and Liquid Glass primary buttons.
+- Privacy copy reflects the current demo. The completion flag is the only onboarding value stored.
+- Xcode `build-for-testing` succeeded with Swift warnings treated as errors. The simulator runtime is still downloading, so the iOS screenshots and UI test execution are pending.
 
 ## Next exact slice
 

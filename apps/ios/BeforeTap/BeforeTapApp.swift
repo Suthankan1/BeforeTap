@@ -2,9 +2,14 @@ import SwiftUI
 
 @main
 struct BeforeTapApp: App {
+    @AppStorage("hasOnboarded") private var hasOnboarded = false
     var body: some Scene {
         WindowGroup {
-            RootView()
+            if hasOnboarded {
+                RootView()
+            } else {
+                OnboardingView { hasOnboarded = true }
+            }
         }
     }
 }

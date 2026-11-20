@@ -7,6 +7,14 @@ final class DemoFlowTests: XCTestCase {
         app.launch()
 
         let demoButton = app.buttons["Explore a demo result"]
+        let getStarted = app.buttons["Get started"]
+        let ready = getStarted.waitForExistence(timeout: 2)
+        if ready {
+            getStarted.tap()
+            XCTAssertTrue(app.staticTexts["Your messages stay yours."].waitForExistence(timeout: 5))
+            app.buttons["Continue"].tap()
+        }
+
         XCTAssertTrue(demoButton.waitForExistence(timeout: 5))
         demoButton.tap()
 
