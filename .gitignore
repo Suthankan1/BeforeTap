@@ -1,0 +1,38 @@
+# macOS / Xcode
+.DS_Store
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+apps/ios/*.xcodeproj/
+apps/ios/*.xcworkspace/
+.build/
+
+# Android / Gradle
+.gradle/
+build/
+**/build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+
+# Secrets and local data
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+*.cer
+*.key
+*.pem
+secrets/
+screenshots-private/
+
+# Editors / artifacts
+.vscode/
+*.log
+*.tmp
+__pycache__/

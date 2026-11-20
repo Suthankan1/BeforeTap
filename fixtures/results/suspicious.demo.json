@@ -1,0 +1,16 @@
+{
+  "fixture": true,
+  "verdict": "SUSPICIOUS",
+  "displayHost": "verify-login.example",
+  "checkedAt": "2026-11-20T00:00:00Z",
+  "evidence": [
+    {
+      "code": "UNFAMILIAR_DOMAIN",
+      "severity": "WARNING",
+      "explanation": "The visible brand and destination differ.",
+      "source": "Illustrative local indicator"
+    }
+  ],
+  "checks": [{"name": "Local structure", "state": "COMPLETED"}],
+  "limitations": ["No reputation lookup was performed."]
+}

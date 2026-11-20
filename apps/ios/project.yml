@@ -1,0 +1,22 @@
+name: BeforeTap
+options:
+  bundleIdPrefix: com.suthankan
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+targets:
+  BeforeTap:
+    type: application
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - BeforeTap
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.suthankan.beforetap
+        PRODUCT_NAME: BeforeTap
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic

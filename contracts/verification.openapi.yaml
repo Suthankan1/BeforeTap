@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: BeforeTap Verification Gateway (Proposed)
+  version: 0.1.0
+  description: >
+    Design-only contract. No endpoint is deployed in this repository.
+    Requests require user consent; the service MUST NOT fetch arbitrary
+    submitted URLs or follow redirects. Provider licensing and auth TBD.
+servers:
+  - url: https://api.beforetap.example
+    description: Placeholder domain only; do not send requests.
+paths:
+  /v1/verifications:
+    post:
+      summary: Request an optional reputation check
+      description: >
+        Planned endpoint. A clean provider response means no known match,
+        not guaranteed safety. Require explicit consent and authentication.
+      operationId: createVerification
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationRequest'
+      responses:
+        '200':
+          description: Structured evidence and verdict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerificationResponse'
+        '400':
+          description: Malformed, unsupported or oversized input
+        '401':
+          description: Authentication required
+        '403':
+          description: Consent missing or forbidden
+        '429':
+          description: Rate limit exceeded
+        '503':
+          description: Provider unavailable; client shows unable to verify
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    VerificationRequest:
+      type: object
+      additionalProperties: false
+      required: [inputKind, url, consentForRemoteLookup]
+      properties:
+        inputKind:
+          type: string
+          enum: [PASTED_URL, EXTRACTED_TEXT, QR_CODE]
+        url:
+          type: string
+          format: uri
+          maxLength: 4096
+          description: >
+            Only http/https after validated parsing; URL may contain private
+            tokens and must be redacted from logs.
+        consentForRemoteLookup:
+          type: boolean
+          const: true
+    VerificationResponse:
+      type: object
+      additionalProperties: false
+      required: [id, verdict, checkedAt, displayHost, checks, evidence, limitations]
+      properties:
+        id:
+          type: string
+          format: uuid
+        verdict:
+          $ref: '#/components/schemas/Verdict'
+        checkedAt:
+          type: string
+          format: date-time
+        displayHost:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+        evidence:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evidence'
+        limitations:
+          type: array
+          items:
+            type: string
+        recommendedActions:
+          type: array
+          items:
+            type: string
+    Verdict:
+      type: string
+      enum:
+        - KNOWN_MALICIOUS
+        - SUSPICIOUS
+        - NO_KNOWN_THREATS
+        - UNABLE_TO_VERIFY
+    Check:
+      type: object
+      additionalProperties: false
+      required: [name, state]
+      properties:
+        name:
+          type: string
+        state:
+          type: string
+          enum: [COMPLETED, SKIPPED, FAILED]
+        reason:
+          type: string
+        observedAt:
+          type: string
+          format: date-time
+    Evidence:
+      type: object
+      additionalProperties: false
+      required: [code, severity, explanation, source]
+      properties:
+        code:
+          type: string
+        severity:
+          type: string
+          enum: [INFO, WARNING, CRITICAL]
+        explanation:
+          type: string
+        source:
+          type: string
+        observedAt:
+          type: string
+          format: date-time

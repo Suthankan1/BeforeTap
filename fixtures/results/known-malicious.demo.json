@@ -1,0 +1,16 @@
+{
+  "fixture": true,
+  "verdict": "KNOWN_MALICIOUS",
+  "displayHost": "account-verify.example",
+  "checkedAt": "2026-11-20T00:00:00Z",
+  "evidence": [
+    {
+      "code": "DEMO_THREAT_MATCH",
+      "severity": "CRITICAL",
+      "explanation": "Illustration of a confirmed provider match. No real provider was queried.",
+      "source": "Fictional fixture"
+    }
+  ],
+  "checks": [{"name": "Demonstration lookup", "state": "COMPLETED"}],
+  "limitations": ["Not a live security result."]
+}

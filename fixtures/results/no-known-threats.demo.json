@@ -1,0 +1,9 @@
+{
+  "fixture": true,
+  "verdict": "NO_KNOWN_THREATS",
+  "displayHost": "info.example",
+  "checkedAt": "2026-11-20T00:00:00Z",
+  "evidence": [],
+  "checks": [{"name": "Demonstration lookup", "state": "COMPLETED"}],
+  "limitations": ["Illustrative clean lookup only. Absence of a match does not establish safety."]
+}

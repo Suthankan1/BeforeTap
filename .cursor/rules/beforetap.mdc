@@ -1,0 +1,8 @@
+---
+description: BeforeTap native mobile architecture, prompting workflow, and security invariants
+alwaysApply: true
+---
+
+Follow the repository's root `AGENTS.md` and `DECISIONS.md` as the canonical rules. Read `STATUS.md` and the relevant design/security docs before editing.
+
+Native iOS = SwiftUI. Native Android = Kotlin + Jetpack Compose Material 3. The 20-screen Figma prototypes are the visual source of truth. Use small testable slices and never claim a demo verdict is a real threat lookup. Do not introduce remote URL fetching, embedded provider secrets or unconsented uploads.

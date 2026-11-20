@@ -1,0 +1,9 @@
+{
+  "fixture": true,
+  "verdict": "UNABLE_TO_VERIFY",
+  "displayHost": "helpdesk.example",
+  "checkedAt": "2026-11-20T00:00:00Z",
+  "evidence": [],
+  "checks": [{"name": "Demonstration lookup", "state": "FAILED", "reason": "Provider timeout"}],
+  "limitations": ["A required check did not complete. Do not infer safety."]
+}
