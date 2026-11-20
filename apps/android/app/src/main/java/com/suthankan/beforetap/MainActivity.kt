@@ -4,18 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -49,64 +49,61 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private enum class CheckRoute { HOME, SOURCE, PASTE, DEMO }
+
 @Composable
 private fun BeforeTapApp() {
     var destination by rememberSaveable { mutableIntStateOf(0) }
-    var showDemo by rememberSaveable { mutableStateOf(false) }
+    var route by rememberSaveable { mutableStateOf(CheckRoute.HOME) }
+    var pasteOrigin by rememberSaveable { mutableStateOf(CheckRoute.HOME) }
+    val goBack: () -> Unit = {
+        route = when (route) {
+            CheckRoute.DEMO -> CheckRoute.PASTE
+            CheckRoute.PASTE -> pasteOrigin
+            else -> CheckRoute.HOME
+        }
+    }
+    val openPaste: () -> Unit = {
+        pasteOrigin = route
+        route = CheckRoute.PASTE
+    }
+    BackHandler(enabled = route != CheckRoute.HOME, onBack = goBack)
+
     Scaffold(
+        containerColor = Color(0xFFF3F8F4),
         bottomBar = {
-            NavigationBar {
-                val items = listOf("Check", "History", "Settings")
-                val icons = listOf(Icons.Outlined.VerifiedUser, Icons.Outlined.History, Icons.Outlined.Settings)
-                items.forEachIndexed { index, title ->
-                    NavigationBarItem(
-                        selected = destination == index,
-                        onClick = { destination = index; showDemo = false },
-                        icon = { Icon(icons[index], contentDescription = null) },
-                        label = { Text(title) }
-                    )
+            if (route == CheckRoute.HOME) {
+                NavigationBar(
+                    modifier = Modifier.navigationBarsPadding().padding(horizontal = 24.dp)
+                        .padding(bottom = 12.dp).clip(RoundedCornerShape(29.dp)),
+                    containerColor = Color(0xFFE3EDE8),
+                    windowInsets = WindowInsets(0, 0, 0, 0)
+                ) {
+                    val items = listOf("Check", "History", "Settings")
+                    val icons = listOf(R.drawable.tab_check, R.drawable.tab_history, R.drawable.tab_settings)
+                    items.forEachIndexed { index, title ->
+                        NavigationBarItem(
+                            selected = destination == index,
+                            onClick = { destination = index },
+                            icon = { CheckArtwork(icons[index], 20) },
+                            label = { Text(title) },
+                            colors = NavigationBarItemDefaults.colors(indicatorColor = Color(0xFFC8E9DE))
+                        )
+                    }
                 }
             }
         }
     ) { padding ->
         Box(Modifier.padding(padding).fillMaxSize()) {
             when {
-                destination == 0 && showDemo -> DemoResult(onBack = { showDemo = false })
-                destination == 0 -> CheckHome(onDemo = { showDemo = true })
                 destination == 1 -> Placeholder("No saved checks", "History is not implemented.")
-                else -> Placeholder("Privacy settings", "Online checks and history are not enabled.")
+                destination == 2 -> Placeholder("Privacy settings", "Online checks and history are not enabled.")
+                route == CheckRoute.SOURCE -> ChooseSource(onPaste = openPaste, onBack = goBack)
+                route == CheckRoute.PASTE -> ReviewLink(onDemo = { route = CheckRoute.DEMO }, onBack = goBack)
+                route == CheckRoute.DEMO -> DemoResult(onBack = goBack)
+                else -> CheckHome(onPaste = openPaste, onChooseSource = { route = CheckRoute.SOURCE })
             }
         }
-    }
-}
-
-@Composable
-private fun CheckHome(onDemo: () -> Unit) {
-    var input by remember { mutableStateOf("") }
-    Column(
-        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Text("BEFORETAP", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-        Text("Check before you tap.", fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 36.sp)
-        Text("A suspicious link or message? Understand the warning signs first.")
-        Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
-            Text("A little pause. A lot more clarity.", style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(22.dp))
-        }
-        OutlinedTextField(
-            value = input, onValueChange = { input = it },
-            modifier = Modifier.fillMaxWidth(),
-            label = { Text("Paste a URL or message") },
-            minLines = 2
-        )
-        Text("Screenshot import — planned", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text("QR scanning — planned", color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Button(onClick = onDemo, modifier = Modifier.fillMaxWidth().height(56.dp)) {
-            Text("Explore a demo result")
-        }
-        Text("DEMO ONLY — no check is performed and no URL is sent.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

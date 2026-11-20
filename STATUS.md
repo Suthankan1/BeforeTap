@@ -68,15 +68,21 @@ Updated: 2026-11-20
 - The privacy copy describes the current demo. A local Boolean records completion.
 - Gradle build, six unit tests, and lint passed. Android 37 emulator verified first launch, Back navigation, Continue to Check, and relaunch. Compared 412 × 892 emulator screenshots against both Figma frames.
 
-## iOS onboarding
+## iOS onboarding (`7d52fb6`)
 
 - Implemented Welcome and Privacy from iOS Figma frames `4:194` and `4:227`. The screens use Figma artwork, Dynamic Type, native navigation, and Liquid Glass primary buttons.
 - Privacy copy reflects the current demo. The completion flag is the only onboarding value stored.
 - Xcode `build-for-testing` succeeded with Swift warnings treated as errors. The simulator runtime is still downloading, so the iOS screenshots and UI test execution are pending.
 
+## Android Check and source selection
+
+- Implemented Android Figma frames `2:80` and `2:142`, including the Check home, source rows, safety tip, and native Material navigation.
+- Link review shows the destination of a single supported URL using local parsing. The draft and result are held in memory. The app performs no live reputation check, and screenshot and QR entry points show their planned status.
+- Gradle assemble, six unit tests, and lint passed. Android 37 emulator verified Check home, source navigation and Back, invalid input, local destination review, and the labeled demo. Compared 412 × 892 screenshots against the Figma frames.
+
 ## Next exact slice
 
-Finish the iOS simulator launch and UI smoke check after installing the runtime. Continue the M1.2 work with IDN handling and local input review after the parser's shared behavior is established.
+Run the iOS XCTest and compare Welcome and Privacy on the simulator. Then implement iOS Check and source selection from frames `4:258` and `4:320`, including local link review. Continue M1.2 with IDN handling and message extraction.
 
 ## Session log template
 
